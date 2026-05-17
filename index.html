@@ -3,25 +3,27 @@
 <head>
     <title>Autonomous Monitor</title>
 </head>
-<body id="bg" style="color: white; text-align: center; font-family: sans-serif; padding-top: 20vh; transition: background 0.3s; background-color: gray;">
+<body id="bg" style="color: white; text-align: center; font-family: sans-serif; padding-top: 40vh; transition: background 0.3s; background-color: gray;">
     <h1>Live Cloud Monitor</h1>
     <h2>Stan czujnika: <span id="status-text">LOADING...</span></h2>
 
     <script>
-        // !!! TUTAJ WPISZESZ SWÓJ CZYSTY URL Z MOCKAPI !!!
         const API_URL = "https://6a09e244e7e3f433d4838ad5.mockapi.io/api/base/status/1";
 
         async function checkStatus() {
             try {
-                let res = await fetch(API_URL);
-                let data = await res.json();
+
+                // funckje typu async dzialaja w tle - caly czas!
+
+                let res = await fetch(API_URL); // await nakazuje oczekiwanie na odbiór odpowiedzi (get request)
+                let data = await res.json(); // pobranie danych json
                 
                 if (data.is_green === true || data.is_green === "true") {
                     document.body.style.backgroundColor = 'green';
-                    document.getElementById('status-text').innerText = 'TRUE (ZIELONY)';
+                    document.getElementById('status-text').innerText = 'CZŁONEK OBECNY';
                 } else {
                     document.body.style.backgroundColor = 'red';
-                    document.getElementById('status-text').innerText = 'FALSE (CZERWONY)';
+                    document.getElementById('status-text').innerText = 'LABORATORIUM PUSTE';
                 }
             } catch (err) { console.error('Błąd pobierania:', err); }
         }
